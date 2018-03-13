@@ -16,6 +16,7 @@ module Source
     ALIASES = '/git/default.gitaliases'
     TEMPLATE = '/git/default.gittemplate'
     UNIX = '/git/unix.gitconfig'
+    OSX = '/git/osx.gitconfig'
     WIN = '/git/win.gitconfig'
 
     module Ignore

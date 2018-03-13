@@ -1,0 +1,6 @@
+[core]
+  autocrlf = input
+  safecrlf = false
+
+[credential]
+  helper = osxkeychain

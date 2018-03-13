@@ -44,8 +44,9 @@ export LSCOLORS=ExFxBxCxexhxhxexexGeGe
 # \[\e[;30m\]  -> start gray
 # \u           -> username
 # \[\e[0m\]    -> end gray
-export PS1="\[\e[34m\]\h\[\e[0m\]:\[\e[1;34m\]\W\[\e[0m\] \[\e[30m\]\u\[\e[0m\]\$ "
-export PS2="\[\e[34m\] => \[\e[0m\]"
+lambda=$(echo -e "\xce\xbb")
+export PS1="\[\e[;34m\]\h\[\e[0m\]:\[\e[1;34m\]\W\[\e[0m\] \[\e[;30m\]\u\[\e[0m\] \[\e[;36m\]\$(vcprompt -f \"%b\")\[\e[0m\] $lambda "
+export PS2="\[\e[;34m\] => \[\e[0m\]"
 
 # Enable aliases
 if [[ -f "$HOME/.bash_aliases" ]]; then
@@ -70,7 +71,7 @@ for item in "${earlyPaths[@]}"; do
 done
 
 # Paths that do not take precidence
-latePaths=( "/usr/local/git/bin" "/usr/local/mysql/bin" "/usr/local/php5/bin" "/usr/local/rvm/bin" "/usr/local/sencha" "$HOME/.rvm/bin" )
+latePaths=( "/usr/local/git/bin" "/usr/local/mysql/bin" "/usr/local/php5/bin" "/usr/local/rvm/bin" "/usr/local/sencha" "$HOME/.rvm/bin" "/usr/local/heroku/bin" )
 
 for item in "${latePaths[@]}"; do
   if [[ -d "$item" ]]; then
@@ -79,8 +80,8 @@ for item in "${latePaths[@]}"; do
 done
 
 # Enable RVM
-if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
-  source "$HOME/.rvm/scripts/rvm"
-elif [[ -s "/usr/local/rvm/scripts/rvm" ]]; then
-  source "/usr/local/rvm/scripts/rvm"
-fi
+# if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
+#   source "$HOME/.rvm/scripts/rvm"
+# elif [[ -s "/usr/local/rvm/scripts/rvm" ]]; then
+#   source "/usr/local/rvm/scripts/rvm"
+# fi
