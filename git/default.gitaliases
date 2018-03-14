@@ -161,7 +161,7 @@
   # Reloading branches
   ##
 
-  reload-branch = !sh -c 'git fetch && git checkout master && git branch -D $1 && git co $1' -
+  reload-branch = !sh -c 'git fetch && git co master && git br -D $1 && git co $1' -
   rb = !git reload-branch
 
   ##
@@ -179,6 +179,10 @@
   ##
   # Workflow
   ##
+
+  # set the current branch's upstream to origin
+  fixup-branch = !sh -c 'git branch --set-upstream-to origin/$(git cb)'
+  fb = !git fixup-branch
 
   # oldest-ancestor from a given branch
   oldest-ancestor = !sh -c 'git log --pretty=format:%H $(git cb) ^$1 | tail -1' -
@@ -205,15 +209,13 @@
   squash-all-commits = !sh -c 'git reset $(git oa $1)^ && git ca' -
   sac = !git squash-all-commits
 
-  sync = !git co $(git dev-branch) && git pull && git cub && git prune-all && git br -vv
+  # push everything to the current branch at origin (more explicit that git push)
+  push-origin = !sh -c 'git push origin $(git cb)'
+  po = !git push-origin
 
   # force-push everything to the current branch at origin
   force-push-origin = !sh -c 'git push -f origin $(git cb)'
   fpo = !git force-push-origin
-
-  # push everything to the current branch at origin (more explicit that git push)
-  push-origin = !sh -c 'git push origin $(git cb)'
-  po = !git push-origin
 
   # add everything to a new "Work in Progress" commit
   work-in-progress-local = !sh -c 'git ca -m WIP'
@@ -227,9 +229,8 @@
   work-in-progress-forced = !sh -c 'git wipl && git fpo'
   wipf = !git work-in-progress-forced
 
-  # set the current branch's upstream to origin
-  fixup-branch = !sh -c 'git branch --set-upstream-to origin/$(git cb)'
-  fb = !git fixup-branch
+  # switch to dev, clean up local and remote branches
+  sync = !git co $(git dev-branch) && git pull && git cub && git prune-all && git br -vv
 
   # pull the "canonical" ignore (view available ignores with git ignore list)
   ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
