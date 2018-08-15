@@ -45,8 +45,11 @@ export LSCOLORS=ExFxBxCxexhxhxexexGeGe
 # \u           -> username
 # \[\e[0m\]    -> end gray
 lambda=$(echo -e "\xce\xbb")
-export PS1="\[\e[;34m\]\h\[\e[0m\]:\[\e[1;34m\]\W\[\e[0m\] \[\e[;30m\]\u\[\e[0m\] \[\e[;36m\]\$(vcprompt -f \"%b\")\[\e[0m\] $lambda "
-export PS2="\[\e[;34m\] => \[\e[0m\]"
+setPrompt() {
+  export PS1="\[\e[38;5;104m\]$(kubectl config current-context)\[\e[0m\] \[\e[1;34m\]\W\[\e[0m\] \[\e[;36m\]\$(vcprompt -f \"%b\")\[\e[0m\] $lambda "
+  export PS2="\[\e[;34m\] => \[\e[0m\]"
+}
+export PROMPT_COMMAND="setPrompt"
 
 # Enable aliases
 if [[ -f "$HOME/.bash_aliases" ]]; then
